@@ -1,28 +1,52 @@
+#include <cstdlib>
 #include <iostream>
 #include "../includes/engine.hpp"
 
 using namespace std;
 
 int main(int argc, char const *argv[]){
-  if(argc>2){
-    cout<<"Usage:"<<endl;
-
+  if(argc < 2){
+    cout<<"\033[31m";
+    cout << "Kubix CLI\nUsage: kubix run <img_name> <cont_name> --mem 512M --cpu 50000"<<"\033[0m\n";
+    exit(1);
    }
    string cmd = argv[1];
 
    if(cmd == "run"){
-     if(argc < 3){
-       run_container("/bin/bash");
+     string image=argv[2];
+     string name = argv[3];
+     string mem = "";
+     string cpu ="";
+
+     for(int i=0;i<=4;i++){
+       string arg = argv[i];
+       if (arg == "--mem" && i + 1 < argc) mem = argv[++i];
+       if (arg == "--cpu" && i + 1 < argc) cpu = argv[++i];
      }
-     else{
-       run_container(argv[2]);
+
+     char sh[]="/bin/bash";
+
+     run_container(image,name,sh,mem,cpu);
+     
+     } 
+
+   if(cmd=="pull"){
+     if(argc<3){
+       cout<<"Usage: kubix pull <distro_name>";
+       return 1;
+       
      }
- }
-   else if(cmd=="stop"){
+     string distro =argv[2];
+
+     pull_image(distro);
+     
+   } 
+
+
+  
+    if(cmd=="stop"){
      stop_container();
    }
-   else{
-     cout<<"\033[31mUnkown command\033[0m\n";
-   } 
+   
    return 0;    
 }
