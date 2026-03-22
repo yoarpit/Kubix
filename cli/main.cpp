@@ -45,7 +45,12 @@ int main(int argc, char const *argv[]){
 
   
     if(cmd=="stop"){
-     stop_container();
+      if(argc<3){
+        cout<<"\033[31m Usage: kubix stop <container name>\033[31m\n ";
+      }
+
+      string name=argv[2];
+     stop_container(name);
    }
    
    return 0;    

@@ -1,5 +1,6 @@
 #include <cstdio>
 #include<sched.h>
+#include <string>
 #include<unistd.h>
 #include<sys/mount.h>
 #include<sys/types.h>
@@ -79,23 +80,50 @@ static int container_main(void* arg){
     cout << "Kubix: Container '" << name << "' stopped.\n";
 
 }
+
+void container_list(){
   
- void stop_container(){
-    ifstream f("kubix.pid");
+}
+
+
+  
+ void stop_container(string name){
+    string run_path=string(KUBIX_BASE)+"/run/"+name;
+    ifstream f(run_path);
 
     if (!f) {
-        cerr << "PID file not found\n";
+        cerr << "\033[31mKubix Error:"<<name<<"is not rinnning.\033[0m\n";
         return;
     }
 
-    int pid;
-    f >> pid;
+    pid_t pid=-1;
+   if(!(f >> pid)){
+    cout<<"Invalid PID file\n";
+    return;
+   }
+
+   if(!fs::exists("/proc/"+to_string(pid))){
+     cout<<"process already stopped\n";
+     remove(run_path.c_str());
+     return;
+     
+   }
 
     if (kill(pid, SIGTERM) == 0) {
           cout << "Container stopped gracefully\n";
-    } else {
+    }
+
+    if(filesystem::exists("/proc/" + to_string(pid))){
+      cout<<"Force Killing...";
+      kill(pid,SIGKILL);
+  }
+
+
+     else {
         perror("Failed to stop container");
-    } }
+    }
+    remove(run_path.c_str());
+  }
 
 
   
