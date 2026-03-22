@@ -1,6 +1,7 @@
+#include <csignal>
 #include <cstdio>
 #include<sched.h>
-#include <string>
+#include<string>
 #include<unistd.h>
 #include<sys/mount.h>
 #include<sys/types.h>
@@ -82,7 +83,37 @@ static int container_main(void* arg){
 }
 
 void container_list(){
-  
+  string run_path =string(KUBIX_BASE)+"/run";
+
+  if(!fs::exists(run_path)){
+    cout<<"No cantainers found.\n";
+    return;
+  }
+
+  cout<<"Name\t\tPID\t\tSTATUS\n";
+  cout<<"-----------------------------------------\n";
+  for(const auto& entry : fs::directory_iterator(run_path)){
+      string name=entry.path().filename().string();
+
+      ifstream f(entry.path());
+      pid_t pid;
+
+      if(!(f>>pid)){
+        cout<<name<<"\t\tInvalid\t\tErorr\n";
+        continue;
+
+      }
+      string proc_path="/proc/"+to_string(pid);
+
+      if(fs::exists(proc_path)){
+        cout<<name<<"\t\t"<<pid<<"\t\tRunning\n";
+      }
+      else{
+        cout<<name<<"\t\t"<<pid<<"\t\tStopped\n";
+      }
+      
+      
+  }
 }
 
 
@@ -111,20 +142,27 @@ void container_list(){
 
     if (kill(pid, SIGTERM) == 0) {
           cout << "Container stopped gracefully\n";
+          
     }
 
-    if(filesystem::exists("/proc/" + to_string(pid))){
-      cout<<"Force Killing...";
-      kill(pid,SIGKILL);
-  }
+    for(int i = 0; i < 6; i++) {
+        usleep(500000); 
 
+}
+    if(filesystem::exists("/proc/" + to_string(pid))){
+      kill(pid,SIGKILL);    
+      remove(run_path.c_str());
+      return;
+      
+  }
+   
 
      else {
         perror("Failed to stop container");
     }
-    remove(run_path.c_str());
-  }
+   }
 
 
   
  
+

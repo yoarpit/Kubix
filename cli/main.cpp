@@ -40,7 +40,15 @@ int main(int argc, char const *argv[]){
 
      pull_image(distro);
      
-   } 
+   }
+
+   if(cmd == "list"){
+     if(argc<2){
+       cout<<"Usage: kubix list";
+     }
+
+     container_list();
+   }
 
 
   
