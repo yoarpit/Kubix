@@ -18,7 +18,7 @@ void pull_image(string distro){
   }
 
   map<string, string> urls = {
-        {"ubuntu-latest", "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-root.tar.xz"}
+        {"ubuntu-latest", "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-root.tar.xz"},
         {"ubuntu", "https://cloud-images.ubuntu.com/minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64-root.tar.xz"},
         {"fedora", "https://mirrors.aliyun.com/fedora/releases/39/Container/x86_64/images/Fedora-Container-Base-39-1.5.x86_64.tar.xz"},
         {"arch", "https://archive.archlinux.org/iso/2024.03.01/archlinux-bootstrap-x86_64.tar.gz"},
