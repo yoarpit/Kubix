@@ -27,20 +27,18 @@ ofstream control("/sys/fs/cgroup/cgroup.subtree_control");
         control.close();
 
 
- if(!mem_limit.empty()&& mem_limit !="0M"){
+ if(!mem_limit.empty()&& mem_limit!="0"){
    ofstream mem_file (path+"/memory.max");
    if(mem_file.is_open()){
      mem_file<<mem_limit;
-   }}
- 
-   else if(mem_limit=="0M"){
-     ofstream(path+"/memory.max")<<"4M";
+   }}else{
+     ofstream(path+"/memory.max")<<"max";
    }
   
 }
 
  if(!cpu_limit.empty()){
-   ofstream(path+"/cpu.max")<<"50000";
+   ofstream(path+"/cpu.max")<<"50000 100000";
   
 }
 

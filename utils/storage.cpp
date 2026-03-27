@@ -18,11 +18,13 @@ void pull_image(string distro){
   }
 
   map<string, string> urls = {
-        {"ubuntu", "https://partner-images.canonical.com/core/focal/current/ubuntu-focal-core-cloudimg-amd64-root.tar.gz"},
-        {"fedora", "https://download.fedoraproject.org/pub/fedora/linux/releases/39/Container/x86_64/images/Fedora-Container-Base-39-1.5.x86_64.tar.xz"},
-        {"arch",   "http://os.archlinuxarm.org/os/ArchLinuxARM-x86_64-latest.tar.gz"},
+        {"ubuntu-latest", "https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64-root.tar.xz"}
+        {"ubuntu", "https://cloud-images.ubuntu.com/minimal/releases/jammy/release/ubuntu-22.04-minimal-cloudimg-amd64-root.tar.xz"},
+        {"fedora", "https://mirrors.aliyun.com/fedora/releases/39/Container/x86_64/images/Fedora-Container-Base-39-1.5.x86_64.tar.xz"},
+        {"arch", "https://archive.archlinux.org/iso/2024.03.01/archlinux-bootstrap-x86_64.tar.gz"},
         {"kali",   "https://kali.download/nethunter-images/current/rootfs/kali-nethunter-rootfs-minimal-amd64.tar.xz"},
-        {"rocky",  "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-Container-Base.tar.xz"}
+        {"rocky", "https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-Container-Base.latest.x86_64.tar.xz"},
+        {"debian","https://deb.debian.org/debian/dists/bookworm/main/installer-amd64/current/images/netboot/netboot.tar.gz"}
     };
 
   if(urls.find(distro)==urls.end()){
