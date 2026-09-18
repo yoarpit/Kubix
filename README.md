@@ -11,7 +11,10 @@ Lightweight Linux Container Runtime in C++
 <p>
   <img src="https://img.shields.io/badge/C++-17%2B-blue?style=for-the-badge&logo=c%2B%2B" alt="C++">
   <img src="https://img.shields.io/badge/Linux-Ubuntu-black?style=for-the-badge&logo=linux" alt="Linux">
-  <img src="https://img.shields.io/badge/License-Apache%202.0-orange?style=for-the-badge" alt="License">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
+
+>
+
 </p>
 
 </div>
@@ -228,7 +231,7 @@ Some operations require root privileges and can affect the host system. Use Kubi
 
 📜 License
 
-This project is licensed under the Apache License 2.0.
+This project is licensed under the **MIT License**.
 
 See the LICENSE file for details.
 
